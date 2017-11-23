@@ -88,12 +88,13 @@ public class All {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public void createPlace(String json){
-      entity.Place p  = new Place();
-      p.setDescription("Lets Test man");
+      entity.Place p = new Gson().fromJson(json,entity.Place.class);
       EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
       PlaceFacade pFacade = new PlaceFacade(emf);
       pFacade.createPlace(p);
   }
+  
+  
   
   @GET
   @Path("getPlaces")

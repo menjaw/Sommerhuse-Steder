@@ -6,13 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 
 // @author Lasse
  
  /*
-    ImageURL, street, zip, latitude, longitude, description, rating
+    img, street, zip, latitude, longitude, description, rating
     */ 
 
 @Entity(name = "SEED_PLACE")
@@ -33,11 +32,11 @@ public class Place implements Serializable {
     @Column(length = 255, name = "DESCRIPTION")
     private String description;
     
-    @Column(length = 255, name = "IMAGEURL")
-    private String imageURL;
+    @Column(length = 255, name = "IMG")
+    private String img;
     
     @Column(length = 255, name = "LONGITUDE")
-    private String longtitude;
+    private String longitude;
     
     @Column(length = 255, name = "LATITUDE")
     private String latitude;
@@ -91,22 +90,22 @@ public class Place implements Serializable {
 
     public String getImageURL()
     {
-        return imageURL;
+        return img;
     }
 
     public void setImageURL(String imageURL)
     {
-        this.imageURL = imageURL;
+        this.img = img;
     }
 
     public String getLongtitude()
     {
-        return longtitude;
+        return longitude;
     }
 
     public void setLongtitude(String longtitude)
     {
-        this.longtitude = longtitude;
+        this.longitude = longtitude;
     }
 
     public String getLatitude()
