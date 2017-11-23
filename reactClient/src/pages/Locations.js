@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Data from "../facades/adminFacade";
+import Rating from "./Rating"
 
 class Locations extends Component {
   constructor(){
@@ -22,13 +23,18 @@ class Locations extends Component {
   render() {
 
   const data = this.state.data.map(function(element){
-    return <ul key={element.id}>{element.street}
+    return <div>
+     <ul className="place" key={element.id}>
+                <img src={element.imageURL} />
+                <p><li key={element.id}>Street: {element.street}</li>
                 <li key={element.id}>Zip: {element.zip}</li>
                 <li key={element.id}>Beskrivelse: {element.description}</li>
                 <li key={element.id}>Longtitude: {element.longtitude}</li>
                 <li key={element.id}>Latitude: {element.latitude}</li>
-                <li key={element.id}>Rating: {element.rating}</li>
-            </ul>;
+                <li key={element.id}>Rating: {element.rating}</li></p>    
+                <Rating/>        
+            </ul>   
+     </div>       
     }
   );
 
@@ -44,8 +50,7 @@ class Locations extends Component {
           <div className="alert alert-danger errmsg-left" role="alert">
             {this.state.err}
           </div>
-        )}
-
+        )}   
       </div>
     )
   }
