@@ -2,6 +2,7 @@ package deploy;
 
 // import entity.Place;
 import entity.Place;
+import entity.Rating;
 import entity.Role;
 import entity.User;
 import facades.UserFacade;
@@ -58,6 +59,7 @@ public class DeploymentConfiguration implements ServletContextListener {
         if (em.find(User.class, "user") == null) {
           // Populate with default users/roles
           em.getTransaction().begin();
+          
           Role userRole = new Role("User");
           Role adminRole = new Role("Admin");
           User user = new User("user", "test");
@@ -73,7 +75,7 @@ public class DeploymentConfiguration implements ServletContextListener {
           p.setImageURL("Somewhere/nice/billede.jpg");
          p.setLatitude("55.783282");
          p.setLongtitude("12.502484");
-         p.setRating("1");
+         
          p.setStreet("Egesvinget 11");
          p.setZip("2730");
          
@@ -82,12 +84,17 @@ public class DeploymentConfiguration implements ServletContextListener {
           p2.setImageURL("etsted/ilyngby/billede2.jpg");
          p2.setLatitude("55.783282");
          p2.setLongtitude("12.502484");
-         p2.setRating("2");
+         
          p2.setStreet("Caroline Amalie Vej 35");
          p2.setZip("2800");
           
+          Rating rating = new Rating();
+          
+          rating.setUserId(3);
+          rating.setPlaceId(1);
+          rating.setRating(2);
          
-         
+         em.persist(rating);
          //Persist part
           em.persist(userRole);
           em.persist(adminRole);

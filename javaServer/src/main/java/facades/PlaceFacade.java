@@ -7,65 +7,103 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import static org.eclipse.persistence.jpa.rs.util.JPARSLogger.exception;
-import security.IUser;
-
 
 // @author Lasse
- 
-public class PlaceFacade {
-    
+public class PlaceFacade implements IplaceFacade {
+
     EntityManagerFactory emf;
 
-    public PlaceFacade(EntityManagerFactory emf)
-    {
+    public PlaceFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-    public PlaceFacade()
-    {
+    public PlaceFacade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private EntityManager getEntityManager()
-    {
+    private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
     
-    public void createPlace(Place place){
-     EntityManager em = getEntityManager();
-     em.getTransaction().begin();
-     
-     em.persist(place);
-     em.getTransaction().commit();
-     em.close();
+    @Override
+    public Place getPlace(Long id) {
+        EntityManager em = emf.createEntityManager();
+        Place p = null;
+        try {
+            em.getTransaction().begin();
+            p = em.find(Place.class, (long) id);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return p;
     }
     
-    public List<Place> getPlaces(){
-       EntityManager em = getEntityManager();
-       List<Place> placeList = new ArrayList();
+    public void createPlace(Place place) {
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+
+        em.persist(place);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public List<Place> getPlaces() {
+        EntityManager em = getEntityManager();
+        List<Place> placeList = new ArrayList();
         try {
             Query query = em.createQuery("SELECT e FROM SEED_PLACE e");
             placeList = query.getResultList();
             return placeList;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Desvaerre gik der noget galt");
-        }
-        finally {
+        } finally {
             em.close();
         }
         return null;
-}
+    }
     
-    public static void main(String[] args)
-    {
+    @Override
+    public Place editPlace(Place place) {
+        EntityManager em = emf.createEntityManager();
+
+        Place p;
+        try {
+            em.getTransaction().begin();
+            p = em.find(Place.class, place.getId());
+            if (p != null) {
+                p = place;
+                em.merge(p);
+                em.getTransaction().commit();
+            }
+        } finally {
+            em.close();
+        }
+        return p;
+    }
+    
+    @Override
+    public void deletePlace(Long id) {
+        EntityManager em = emf.createEntityManager();
+        
+        Place p = em.find(Place.class, (long) id);
+        
+        try{
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+    }
+    
+    public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
         Place p = new Place();
         p.setDescription("Et sted hvor man ryger fed");
         p.setImageURL("etsted/andetsted/billede.jpg");
         p.setLatitude("8.0124155");
         p.setLongtitude("3.5263644");
-        p.setRating("1");
         p.setStreet("PrinsesseGade");
         p.setZip("33333");
         new PlaceFacade(emf).createPlace(p);
