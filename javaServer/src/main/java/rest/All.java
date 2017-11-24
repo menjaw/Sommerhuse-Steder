@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import entity.Place;
+import entity.Rating;
+import facades.IplaceFacade;
 import facades.UserFacade;
 import java.util.Random;
 import javax.persistence.Persistence;
@@ -22,6 +24,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import facades.PlaceFacade;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.PathParam;
 import net.minidev.json.JSONObject;
 import security.IUserFacade;
 
@@ -30,16 +33,19 @@ import security.IUserFacade;
  *
  * @author plaul1
  */
-@Path("demoall")
+@Path("places")
 public class All {
 
-  Random r = new Random();    
+   
     
   @Context
   private UriInfo context;
   
   IUserFacade uf;
   Gson gson = new Gson();
+  EntityManagerFactory emf;
+  IplaceFacade ipf;
+  PlaceFacade pf;
   
   /**
    * Creates a new instance of A
@@ -54,18 +60,6 @@ public class All {
    * Retrieves representation of an instance of rest.All
    * @return an instance of java.lang.String
    */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public String getText() {
-    return " {\"message\" : \"result for all\"}";
-  }
-  
-  @GET
-  @Path("randomNum")
-  @Produces(MediaType.APPLICATION_JSON)
-  public String randomNumber(){
-      return "{\"message\":\""+r.nextInt(100000) + "\"}";
-  }
   
   
   @POST
@@ -101,9 +95,24 @@ public class All {
   @Produces(MediaType.APPLICATION_JSON)
   public String getPlaces(){
      EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
-      PlaceFacade pFacade = new PlaceFacade(emf);
-      return gson.toJson(pFacade.getPlaces());
+      ipf = new PlaceFacade(emf);
+      return gson.toJson(ipf.getPlaces());
    
   }
   
+  @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String singlePlace(String singleJson, @PathParam("id") Long id){
+        Place p = null;
+        try{
+            p = ipf.getPlace(id);
+            if(p == null){
+                return gson.toJson(p);
+            }
+        }catch(NullPointerException ex){
+            return null;
+        }
+        return gson.toJson(p);
+    }
 }
