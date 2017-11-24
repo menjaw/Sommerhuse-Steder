@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/menjaw/Sommerhuse-Steder.svg?branch=master)](https://travis-ci.org/menjaw/Sommerhuse-Steder)
+
 ## SeedClient
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
