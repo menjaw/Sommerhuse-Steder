@@ -1,12 +1,13 @@
 {
   "name": "seedclient",
-  "serverURL": "http://localhost:8084/seedMaven/",
+  "serverURL": "http://138.68.102.162/ca3/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "jwt-decode": "^2.2.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-images-upload": "^1.1.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
     "react-star-rating": "^1.4.2"

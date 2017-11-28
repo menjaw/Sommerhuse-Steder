@@ -1,23 +1,23 @@
     body {
       background-color: white;
-      padding: 20px;
+      padding: 0;
       margin: 0;
       /*font-family: Helvetica, Arial, sans-serif;*/
     }
 
-    ul.place
+    .place
     {
-      width: 25%;
-      text-decoration: none;
-      float: left;
-      background-color: #C6C4C3;
-      padding: 0px;
-      margin-left: 1%;
+      width: 100%;
+      height: 100%;
     }
 
-
-
-    ul.header li {
+    .place ul{
+      width: 30%;
+      height: 700px;
+      float: left;
+      list-style-type: none;
+    }
+    .place ul.header li {
       display: inline;
       list-style-type: none;
       margin: 0;
@@ -33,28 +33,17 @@
       color: #FFF;
       /*font-weight: bold;*/
       text-decoration: none;
-      padding: 10px;
       display: inline-block;
     }
 
     img{
-      width: 250px;
-      height: 250px;
-      padding-left: 10%;
+      max-width:100%;
+      padding-bottom: 5px;
     }
 
     .content {
       background-color: #EEEEEE;
-      padding: 20px;
-    }
-
-    .content h2 {
-      padding: 0;
-      margin: 0;
-    }
-
-    .content li {
-      margin-bottom: 10px;
+      padding: 10px;
     }
 
     .active {

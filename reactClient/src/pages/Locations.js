@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Data from "../facades/adminFacade";
-import Rating from "./Rating"
+import Rating from "./Rating";
 
 class Locations extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = { data: [], err: "" }
   }
+
 
   componentWillMount() {
     /*
@@ -20,29 +21,29 @@ class Locations extends Component {
       this.setState({ err: "", data });
     });
   }
+
+
   render() {
 
   const data = this.state.data.map(function(element){
-    return <div>
-     <ul className="place" key={element.id}>
-                <img src={element.imageURL} />
-                <p><li key={element.id}>Street: {element.street}</li>
-                <li key={element.id}>Zip: {element.zip}</li>
-                <li key={element.id}>Beskrivelse: {element.description}</li>
-                <li key={element.id}>Longtitude: {element.longtitude}</li>
-                <li key={element.id}>Latitude: {element.latitude}</li>
-                <li key={element.id}>Rating: {element.rating}</li></p>    
-                <Rating/>        
-            </ul>   
-     </div>       
+    return <div className="place">
+                  <ul key={element.id}>
+                    <img src={element.imageURL} />
+                    <p><li key={element.id}>Street: {element.street}</li>
+                    <li key={element.id}>Zip: {element.zip}</li>
+                    <li key={element.id}>Beskrivelse: {element.description}</li>
+                    <li key={element.id}>Longtitude: {element.longtitude}</li>
+                    <li key={element.id}>Latitude: {element.latitude}</li>
+                    <li key={element.id}>Rating: {element.rating}</li></p>
+                    <Rating />
+                </ul>
+            </div>
     }
   );
 
     return (
       <div>
-        <h2>Places</h2>
-        <p>This message is fetched from the server if you are properly logged in</p>
-
+          <h2>Lokationer</h2>
         <div>
           {data}
         </div>
@@ -50,7 +51,7 @@ class Locations extends Component {
           <div className="alert alert-danger errmsg-left" role="alert">
             {this.state.err}
           </div>
-        )}   
+        )}
       </div>
     )
   }
