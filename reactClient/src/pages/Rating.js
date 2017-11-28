@@ -1,31 +1,39 @@
 import React, { Component } from 'react'
 import Data from "../facades/userFacade";
+import auth from '../authorization/auth';
 
 export default class Rating extends Component {
-    constructor(){
-      super();
-      this.state = { err: "", rate: null}
-
+    constructor(props){
+      super(props);
+      this.state = {
+        err: "",
+        rate: '1',
+        loggedIn: auth.loggedIn,
+      }
     }
 
-    
+    handleChange = (e) => {
+        console.log(e.target.value);
+        this.setState({rate:  e.target.value}, this.handleSubmit);
+    }
 
-    onChange = (e) => {
-        this.setState({rate: 2});
-        console.log("efter :" + this.state.rate);
+    handleSubmit = (e) => {
+      alert('you choice is ' + this.state.rate);
     }
 
     render(){
-        return <div>
-        <select className="rating" onChange={this.onChange} value={this.state.rate}>
-        <option value="1">1 Star</option>
-        <option value="2">2 Star</option>
-        <option value="3">3 Star</option>
-        <option value="4">4 Star</option>
-        <option value="5">5 Star</option>
-        </select>  
-            </div>
-        
+      if(!this.state.loggedIn){
+        return <div className="dropdown">
+          <select className="btn btn-secondary dropdown-toggle" onChange={this.handleChange} value={this.state.rate} >
+            <option className="dropdown-item" value="1">1 Star</option>
+            <option className="dropdown-item" value="2">2 Star</option>
+            <option className="dropdown-item" value="3">3 Star</option>
+            <option className="dropdown-item" value="4">4 Star</option>
+            <option className="dropdown-item" value="5">5 Star</option>
+            </select>
+          </div>
+      }else{
+        return <div>{console.log(this.state.loggedIn)}</div>
+      }
     }
-
-}    
+}
