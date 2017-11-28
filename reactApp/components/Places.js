@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, ListView, ActivityIndicator, TextInput, Alert
+  View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, FlatList, ActivityIndicator, TextInput, Alert, ScrollView
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
@@ -11,9 +11,9 @@ export default class PlacesList extends React.Component{
     super(props);
     const {width,height} = Dimensions.get('screen');
     this.state = {
-      token: null,
-      isLoading: true,
-      dataSource:[],
+      loading: true,
+      data: [],
+      error: null
     }
   }
 
@@ -22,38 +22,40 @@ export default class PlacesList extends React.Component{
   }
 
   componentDidMount(){
-    return fetch('http://localhost:8084/seedMaven/api/demoall/getPlaces/')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
-        }, function() {
-        });
+    const url = 'http://localhost:8084/seedMaven/api/demoall/getPlaces/';
+      fetch(url)
+      .then(res => res.json())
+      .then(res => {
 
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+        this.setState({
+          data:res,
+          error: res.error || null,
+        });
+          this.setState({loading: false})
+        })
+        .catch(error => {
+          this.setState({ error, laoding: false});
+        });
+      }
+
 
   render(){
     const { navigate } = this.props.navigation;
 
-    if(this.state.isLoading) {
+    if(this.state.loading) {
       return (<View style={s.loading}><ActivityIndicator/></View>);
     }
 
     return(
-      <View style={s.container}>
+      //<View>
+      <ScrollView style={s.container}>
         <View style={s.searchCon}>
           <TextInput placeholder="search" placeholderTextColor= 'gray' style={s.search} onChange={this._handelSearch}/>
         </View>
 
-        <ListView dataSource={this.state.dataSource}
-          renderRow={(rowData) =>
-            <TouchableOpacity onPress={() => navigate('Details', {'HomeDetails': rowData})}>
+        <FlatList data={this.state.data}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => navigate('Details', {'HomeDetails': item})}>
               <View style={s.placeCon}>
                 <Image style={s.picture} source={require('../assets/icon.png')}/>
                   <View style={s.infoRow}>
@@ -61,32 +63,39 @@ export default class PlacesList extends React.Component{
                     <View style={s.iconCon}>
                       <Entypo style={s.icon} name="address" size={20} color="#A9A9A9"/>
                     </View>
-                    <Text style={s.name}>{rowData.street}</Text>
+                    <Text style={s.name}>{item.street}</Text>
                   </View>
                   <View style={s.info}>
                     <View style={s.iconCon}>
                       <Entypo style={s.icon} name="location" size={20} color="#A9A9A9"/>
                     </View>
-                    <Text style={s.name}>{rowData.zip}</Text>
+                    <Text style={s.name}>{item.zip}</Text>
                   </View>
                   <View style={s.info}>
                     <View style={s.iconCon}>
                       <Entypo style={s.icon} name="text-document-inverted" size={20} color="#A9A9A9"/>
                     </View>
-                    <Text style={s.name}>{rowData.description.substring(0,30)} ...</Text>
+                    <Text style={s.name}>{item.description.substring(0,30)} ...</Text>
                   </View>
                   <View style={s.info}>
                     <View style={s.iconCon}>
                       <Entypo style={s.icon} name="star" size={20} color="#A9A9A9"/>
                     </View>
-                    <Text style={s.name}>{rowData.rating}/5</Text>
+                    <Text style={s.name}>{item.rating}/5</Text>
                   </View>
                 </View>
               </View>
             </TouchableOpacity>
-          }//render row ends
+          )} //Row ends
+          keyExtractor={(item, index) => index}
         />
-      </View>
+      </ScrollView>
+        /*<View style={s.upload}>
+          <TouchableOpacity style={s.upload} onPress={() =>navigate('Upload')}>
+            <Text style={s.uploadTxt}>Upload</Text>
+          </TouchableOpacity>
+        </View>*/
+      //</View>
     );
   }
 }
