@@ -32,7 +32,7 @@ class TopMenu extends Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/about">About</Link>
+                  <Link className="nav-link" to="/map">Map</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/locations">Locations</Link>

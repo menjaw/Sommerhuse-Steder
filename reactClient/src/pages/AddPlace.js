@@ -8,7 +8,8 @@ export default class AddPlace extends Component {
       this.state = { err: "", place: {street:"",zip:"",description:"",longtitude:"",latitude:"" }, pictures: []}
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event) =>
+    {
         console.log(this.state.place);
         event.preventDefault()
         const street = this.state.place.street;
@@ -16,18 +17,25 @@ export default class AddPlace extends Component {
         const description = this.state.place.description;
         const longtitude = this.state.place.longtitude;
         const latitude = this.state.place.latitude;
-
         //const place = this.state.place;
+        if(street != "" && zip != "" && description != "" && longtitude != "" && latitude != "")
+        {
+          Data.addPlace(this.state.place,(err) =>
+          {
+              if (err) {
+                  return this.setState({err:err.errorMessage});
+              }
+              this.setState({ err:""});
 
-        Data.addPlace(this.state.place,(err) => {
-            if (err) {
-                return this.setState({err:err.errorMessage});
-            }
-            this.setState({ err:""});
-
-        });
-
-
+          });
+          Data.addImage(this.state.pictures,(err) =>
+          {
+              if (err) {
+                  return this.setState({err:err.errorMessage});
+              }
+              this.setState({ err:""});
+          });
+        }
     }
 
     onChange = (e) => {
@@ -59,7 +67,7 @@ export default class AddPlace extends Component {
                         imgExtension={['.jpg', '.JPG','.gif', '.png', '.gif']}
                         maxFileSize={5242880}
                       />
-                      <button onClick={this.handleSubmit} >Submit</button>
+                      <button onClick={this.handleSubmit}>Submit</button>
                   </form>
               )
 
