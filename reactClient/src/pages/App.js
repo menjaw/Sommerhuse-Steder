@@ -2,7 +2,7 @@ import React from "react"
 import {Route, Switch } from "react-router-dom"
 import Login from "./Login";
 import Logout from "./Logout";
-import About from "./About";
+import Map from "./Map";
 import UserPage from "./UserPage";
 import RandomNumber from "./RandomNumber";
 import AdminPage from "./AdminPage";
@@ -20,7 +20,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
-        <Route path="/about" component={About} />
+        <Route path="/map" component={Map} />
         <Route path="/user" component={UserPage} />
         <Route path="/userlist" component={UserList} />
         <Route path="/locations" component={Locations} />

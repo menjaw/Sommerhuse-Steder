@@ -27,8 +27,8 @@ class Locations extends Component {
 
   const data = this.state.data.map(function(element){
     return <div className="place">
-                  <ul key={element.id}>
-                    <img src={element.imageURL} />
+                  <ul className="place" key={element.id}>
+                    <img src={element.imageURL} alt="" />
                     <p><li key={element.id}>Street: {element.street}</li>
                     <li key={element.id}>Zip: {element.zip}</li>
                     <li key={element.id}>Beskrivelse: {element.description}</li>
