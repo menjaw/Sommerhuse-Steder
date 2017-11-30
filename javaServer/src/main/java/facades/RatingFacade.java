@@ -48,4 +48,9 @@ public class RatingFacade implements IratingFacade {
         }
     }
     
+    public static void main(String[] args) {
+        RatingFacade rf = new RatingFacade();
+        
+    }
+    
 }

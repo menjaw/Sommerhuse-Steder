@@ -99,7 +99,6 @@ public class All {
   @Produces(MediaType.APPLICATION_JSON)
   public String getRating(String ratingJson, @PathParam("id") Long id){
       Rating r = null;
-      
       try{
           r = (Rating) irf.getSingleRating(id);
           if(r == null){
