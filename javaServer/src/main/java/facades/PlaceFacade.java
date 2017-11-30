@@ -1,5 +1,8 @@
 package facades;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import entity.Place;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 // @author Lasse
 public class PlaceFacade implements IplaceFacade {
@@ -66,12 +73,11 @@ public class PlaceFacade implements IplaceFacade {
     @Override
     public Place editPlace(Place place) {
         EntityManager em = emf.createEntityManager();
-
         Place p;
         try {
             em.getTransaction().begin();
             p = em.find(Place.class, place.getId());
-            if (p != null) {
+            if (p != null){
                 p = place;
                 em.merge(p);
                 em.getTransaction().commit();
@@ -103,7 +109,7 @@ public class PlaceFacade implements IplaceFacade {
         p.setDescription("Et sted hvor man ryger fed");
         p.setImageURL("etsted/andetsted/billede.jpg");
         p.setLatitude("8.0124155");
-        p.setLongtitude("3.5263644");
+        p.setLongitude("3.5263644");
         p.setStreet("PrinsesseGade");
         p.setZip("33333");
         new PlaceFacade(emf).createPlace(p);

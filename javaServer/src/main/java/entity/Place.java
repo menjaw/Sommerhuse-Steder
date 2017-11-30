@@ -82,11 +82,11 @@ public class Place implements Serializable {
         this.img = img;
     }
 
-    public String getLongtitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongtitude(String longtitude) {
+    public void setLongitude(String longtitude) {
         this.longitude = longtitude;
     }
 
