@@ -11,8 +11,8 @@ import com.google.gson.JsonParser;
 import entity.Place;
 import entity.Rating;
 import facades.IplaceFacade;
+import facades.IratingFacade;
 import facades.UserFacade;
-import java.util.Random;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
@@ -23,9 +23,19 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import facades.PlaceFacade;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 import net.minidev.json.JSONObject;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import security.IUserFacade;
 
 /**
@@ -45,6 +55,7 @@ public class All {
   Gson gson = new Gson();
   EntityManagerFactory emf;
   IplaceFacade ipf;
+  IratingFacade irf;
   PlaceFacade pf;
   
   /**
@@ -89,19 +100,35 @@ public class All {
   }
   
   
+  @GET
+  @Path("rating/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getRating(String ratingJson, @PathParam("id") int id){
+      Rating r = null;
+        try{
+            r = irf.getSingleRating(id);
+            if(r == null){
+                return gson.toJson(r);
+            }
+        }catch(NullPointerException ex){
+            return null;
+        }
+        return gson.toJson(r);
+  }
+  
+  
   
   @GET
   @Path("getPlaces")
   @Produces(MediaType.APPLICATION_JSON)
   public String getPlaces(){
      EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
-      ipf = new PlaceFacade(emf);
-      return gson.toJson(ipf.getPlaces());
-   
+     ipf = new PlaceFacade(emf);
+     return gson.toJson(ipf.getPlaces());
   }
   
   @GET
-    @Path("/{id}")
+    @Path("single/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String singlePlace(String singleJson, @PathParam("id") Long id){
         Place p = null;
@@ -115,4 +142,70 @@ public class All {
         }
         return gson.toJson(p);
     }
+    
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putPlace(String content){
+        
+        JsonObject body = new JsonParser().parse(content).getAsJsonObject();
+        
+        Place p = ipf.getPlace(body.get("id").getAsLong());
+        
+        if(body.has("street")){
+            p.setStreet(body.get("street").getAsString());
+        }
+        if(body.has("longitude")){
+            p.setLongitude(body.get("longitude").getAsString());
+            p.setLongitude(content);
+        }
+        if(body.has("latitude")){
+            p.setLatitude(body.get("latitude").getAsString());
+        }       
+
+        pf.editPlace(p);
+        
+        return new Gson().toJson(p);
+    }
+    
+    
+  
+  
+  @POST
+  @Path("setrating")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public String setRating(String jsonRating){
+      return "{\"message\" : \"Logged in and rating is set\"}";
+  }
+  
+  
+  
+  public static final String FILE_LOCATION = "/Users/danni/Desktop/";
+  @Path("/file")
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadFile(@DefaultValue("") @FormDataParam("user") String user,
+            @FormDataParam("file") InputStream file,
+            @FormDataParam("file") FormDataContentDisposition fileDisposition) throws IOException {
+
+        System.out.println("Just to show how to send additonal data: " + user);
+        String fileName = fileDisposition.getFileName();
+        saveFile(file, fileName);
+        String status = "{\"status\":\"uploaded\"}";
+        return Response.ok(status).build();
+    }
+
+    private void saveFile(InputStream is, String fileLocation) throws IOException {
+        String location = FILE_LOCATION + fileLocation;
+        try (OutputStream os = new FileOutputStream(new File(location))) {
+            byte[] buffer = new byte[256];
+            int bytes = 0;
+            while ((bytes = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytes);
+            }
+        }
+    }
+
 }
