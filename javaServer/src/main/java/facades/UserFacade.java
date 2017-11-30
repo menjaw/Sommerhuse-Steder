@@ -14,35 +14,28 @@ import javax.ws.rs.core.Response;
 import security.IUser;
 import security.PasswordStorage;
 
-public class UserFacade implements IUserFacade
-{
+public class UserFacade implements IUserFacade {
 
     EntityManagerFactory emf;
 
-    public UserFacade(EntityManagerFactory emf)
-    {
+    public UserFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-    public UserFacade()
-    {
+    public UserFacade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private EntityManager getEntityManager()
-    {
+    private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     @Override
-    public IUser getUserByUserId(String id)
-    {
+    public IUser getUserByUserId(String id) {
         EntityManager em = getEntityManager();
-        try
-        {
+        try {
             return em.find(User.class, id);
-        } finally
-        {
+        } finally {
             em.close();
         }
     }
@@ -51,55 +44,40 @@ public class UserFacade implements IUserFacade
   Return the Roles if users could be authenticated, otherwise null
      */
     @Override
-    public List<String> authenticateUser(String userName, String password)
-    {
-        try
-        {
+    public List<String> authenticateUser(String userName, String password) {
+        try {
             System.out.println("User Before:" + userName + ", " + password);
             IUser user = getUserByUserId(userName);
             System.out.println("User After:" + user.getUserName() + ", " + user.getPasswordHash());
             return user != null && PasswordStorage.verifyPassword(password, user.getPasswordHash()) ? user.getRolesAsStrings() : null;
-        } catch (PasswordStorage.CannotPerformOperationException | PasswordStorage.InvalidHashException ex)
-        {
+        } catch (PasswordStorage.CannotPerformOperationException | PasswordStorage.InvalidHashException ex) {
             throw new NotAuthorizedException("Invalid username or password", Response.Status.FORBIDDEN);
         }
     }
 
     @Override
-    public String regUser(String username, String password)
-    {
+    public String regUser(String username, String password) {
         System.out.println("Registering New User in Database");
 
-        try
-        {
+        try {
             EntityManager em = getEntityManager();
-            
-            try
-            {
+
+            try {
                 em.getTransaction().begin();
                 User newuser = new User(username, password);
                 Role userRole = new Role("User");
                 newuser.addRole(userRole);
                 em.persist(newuser);
                 em.getTransaction().commit();
-            } finally
-            {
+            } finally {
                 em.close();
             }
             return "Succesfully Registered User";
-        } catch (PasswordStorage.CannotPerformOperationException ex)
-        {
+        } catch (PasswordStorage.CannotPerformOperationException ex) {
             Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "Failed to Register User, this is probably Emils fault, not Lasse";
 
-    }
-
-    @Override
-    public String testMethod(String test)
-    {
-        return "Test virker: "+test;
-                
     }
 
     @Override
@@ -111,6 +89,11 @@ public class UserFacade implements IUserFacade
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public String testMethod(String test) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

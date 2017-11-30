@@ -74,7 +74,7 @@ public class DeploymentConfiguration implements ServletContextListener {
           p.setDescription("Et sted i provinsen");
           p.setImageURL("Somewhere/nice/billede.jpg");
          p.setLatitude("55.783282");
-         p.setLongtitude("12.502484");
+         p.setLongitude("12.502484");
          
          p.setStreet("Egesvinget 11");
          p.setZip("2730");
@@ -83,7 +83,7 @@ public class DeploymentConfiguration implements ServletContextListener {
           p2.setDescription("Et sted i lyngby");
           p2.setImageURL("etsted/ilyngby/billede2.jpg");
          p2.setLatitude("55.783282");
-         p2.setLongtitude("12.502484");
+         p2.setLongitude("12.502484");
          
          p2.setStreet("Caroline Amalie Vej 35");
          p2.setZip("2800");

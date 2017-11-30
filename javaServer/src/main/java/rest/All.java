@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 import entity.Place;
 import entity.Rating;
 import facades.IplaceFacade;
+import facades.IratingFacade;
 import facades.UserFacade;
 import java.util.Random;
 import javax.persistence.Persistence;
@@ -23,7 +24,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import facades.PlaceFacade;
+import facades.RatingFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import net.minidev.json.JSONObject;
 import security.IUserFacade;
@@ -45,6 +49,7 @@ public class All {
   Gson gson = new Gson();
   EntityManagerFactory emf;
   IplaceFacade ipf;
+  IratingFacade irf;
   PlaceFacade pf;
   
   /**
@@ -89,19 +94,34 @@ public class All {
   }
   
   
+  @GET
+  @Path("rating/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getRating(String ratingJson, @PathParam("id") Long id){
+      Rating r = null;
+      
+      try{
+          r = (Rating) irf.getSingleRating(id);
+          if(r == null){
+              return gson.toJson(r);
+          }
+      }catch(Exception ex){
+          return null;
+      }
+      return gson.toJson(r);
+  }
   
   @GET
   @Path("getPlaces")
   @Produces(MediaType.APPLICATION_JSON)
   public String getPlaces(){
      EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
-      ipf = new PlaceFacade(emf);
-      return gson.toJson(ipf.getPlaces());
-   
+     ipf = new PlaceFacade(emf);
+     return gson.toJson(ipf.getPlaces());
   }
   
   @GET
-    @Path("/{id}")
+    @Path("single/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String singlePlace(String singleJson, @PathParam("id") Long id){
         Place p = null;
@@ -114,5 +134,31 @@ public class All {
             return null;
         }
         return gson.toJson(p);
+    }
+    
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putPlace(String content){
+        
+        JsonObject body = new JsonParser().parse(content).getAsJsonObject();
+        
+        Place p = ipf.getPlace(body.get("id").getAsLong());
+        
+        if(body.has("street")){
+            p.setStreet(body.get("street").getAsString());
+        }
+        if(body.has("longitude")){
+            p.setLongitude(body.get("longitude").getAsString());
+            p.setLongitude(content);
+        }
+        if(body.has("latitude")){
+            p.setLatitude(body.get("latitude").getAsString());
+        }       
+
+        pf.editPlace(p);
+        
+        return new Gson().toJson(p);
     }
 }
