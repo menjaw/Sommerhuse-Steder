@@ -14,6 +14,6 @@ import java.util.List;
  * @author danni
  */
 public interface IratingFacade{
-    public List<Rating> getSingleRating(Long id);
+    public Rating getSingleRating(int id);
     public void setSingleRating(Rating rating, User user);
 }
