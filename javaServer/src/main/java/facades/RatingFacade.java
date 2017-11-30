@@ -5,6 +5,7 @@
  */
 package facades;
 
+import entity.Place;
 import entity.Rating;
 import entity.User;
 import java.util.List;
@@ -38,14 +39,22 @@ public class RatingFacade implements IratingFacade {
     }
 
     @Override
-    public List<Rating> getSingleRating(Long id) {
-        EntityManager em = getEntityManager();
-        try{
-            Query query = em.createQuery("SELECT r FROM SEED_RATING r WHERE PLACEID = 1");
-            return (List<Rating>) query.getResultList();
-        }finally{
+    public Rating getSingleRating(int id) {
+        EntityManager em = emf.createEntityManager();
+        Rating r = null;
+        try {
+            em.getTransaction().begin();
+            r = em.find(Rating.class, (int) id);
+            em.getTransaction().commit();
+        } finally {
             em.close();
         }
+        return r;
+    }
+    
+    public static void main(String[] args) {
+        RatingFacade rf = new RatingFacade();
+        
     }
     
 }

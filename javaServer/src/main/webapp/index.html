@@ -12,7 +12,28 @@ and open the template in the editor.
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   </head>
   <body>
+      
+      <form action="#" enctype="multipart/form-data" method="post">
+      <label>Select File</label><input type= "file" name="file" /> <br/><br/>
+      <button id="btn">Upload</button>
+    </form>
+    <script>
+    document.getElementById("btn").onclick = save;
+    function save(e) {
+      var input = document.querySelector('input[type="file"]');
+      var data = new FormData();
+      data.append('file', input.files[0]);
+      data.append("user", 'WEB User');
+      fetch('api/places/file', {
+        method: 'POST',
+        body: data
+      });
+      e.preventDefault();
+    }
+  </script>
+      
     <div class="container">
+        
       <h1 style="color:steelblue">Semester Seed - REST Backend</h1>
 
       <p>This is a backend for this matching
