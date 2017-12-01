@@ -10,6 +10,7 @@ import UserList from "./UserList";
 import TopMenu from "./TopMenu";
 import Register from "./Register";
 import Locations from "./Locations";
+import Details from "./Details";
 import AddPlace from "./AddPlace";
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/user" component={UserPage} />
         <Route path="/userlist" component={UserList} />
         <Route path="/locations" component={Locations} />
+        <Route path="/details" component={Details} render={ (props) => ({...props})} />
         <Route path="/random" component={RandomNumber} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/addplace" component={AddPlace} />

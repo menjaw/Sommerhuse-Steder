@@ -42,7 +42,7 @@ class AuthenticationHandler {
     if (!sessionStorage.token) {
       return;
     }
-    console.log("Initializing Data From Token");
+    //console.log("Initializing Data From Token");
     this._token = sessionStorage.token;
     var decoded = jwtDecode(this._token);
     this._userName = decoded.username;
