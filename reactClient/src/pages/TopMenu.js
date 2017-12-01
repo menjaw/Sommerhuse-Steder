@@ -41,7 +41,6 @@ class TopMenu extends Component {
                 <Link className="nav-link" to="/addplace">Add Location</Link>
               </li>
               {this.state.loggedIn && this.state.isUser && (<li className="nav-item"><Link className="nav-link" to="/user">Page for Users </Link></li>)}
-              {this.state.loggedIn && this.state.isUser && (<li className="nav-item"><Link className="nav-link" to="/random">Random Number </Link></li>)}
               {this.state.loggedIn && this.state.isAdmin && (<li className="nav-item"><Link className="nav-link" to="/admin">Page for Admins</Link></li>)}
               {this.state.loggedIn && this.state.isAdmin && (<li className="nav-item"><Link className="nav-link" to="/userlist">List of Users</Link></li>)}
 

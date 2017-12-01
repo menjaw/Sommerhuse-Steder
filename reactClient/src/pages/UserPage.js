@@ -28,11 +28,17 @@ class UserPage extends Component {
            // 'startDate' and 'endDate' which are Momentjs objects.
        }
 
-
-
     render() {
       return (
         <div>
+        Find sommerhus:<br />
+        INDTJEKNING<br />
+        <input type="text" /><br />
+        UDTJEKNING<br />
+        <input type="text" /><br />
+        VOKSNE<br />
+        BØRN<br />
+        HVOR? <input type="text" />
         <DateRange
                    onInit={this.handleSelect}
                    onChange={this.handleSelect}
