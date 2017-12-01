@@ -4,7 +4,6 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Map from "./Map";
 import UserPage from "./UserPage";
-import RandomNumber from "./RandomNumber";
 import AdminPage from "./AdminPage";
 import UserList from "./UserList";
 import TopMenu from "./TopMenu";
@@ -26,7 +25,6 @@ function App() {
         <Route path="/userlist" component={UserList} />
         <Route path="/locations" component={Locations} />
         <Route path="/details" component={Details} render={ (props) => ({...props})} />
-        <Route path="/random" component={RandomNumber} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/addplace" component={AddPlace} />
         <Route path="/register" component={Register} />
