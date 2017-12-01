@@ -90,7 +90,7 @@ addPlace = (placeData,cb) => {
   fetch(URL + "api/demoall/createPlace", options)
   .then( res => {
     resFromFirstPromise = res;
-    //return res.json();
+    return resFromFirstPromise.json();
   })
   .then(data => {
     //data.message do something
@@ -119,7 +119,7 @@ addPlace = (placeData,cb) => {
     fetch(URL + "api/demoall/file", options)
     .then( res => {
       resFromFirstPromise = res;
-      //return res.json();
+      return resFromFirstPromise.json();
     })
     .then(data => {
       //data.message do something
@@ -133,25 +133,16 @@ addPlace = (placeData,cb) => {
     }
 
     googleMapAPI = (cb) => {
-      this._errorMessage = "";
-      this._messageFromServer = "";
-      let resFromFirstPromise=null;  //Pass on response the "second" promise so we can read errors from server
-      const options = fetchHelper.makeOptions("GET", true);
-      fetch("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyC5oyuVSn6pYba31z5qxD9O7wsnVFGiO9U", options)
-        .then((res) => {
-          resFromFirstPromise = res;
-          return res.json();
-        }).then((data) => {
-          errorChecker(resFromFirstPromise,data);
-          if (cb) {
-            cb(null, data.message[0])
-          }
-        }).catch(err => {
-          console.log(JSON.stringify(err))
-          if (cb) {
-            cb({ err: fetchHelper.addJustErrorMessage(err) })
-          }
+      return fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=55.770048,12.512317&key=AIzaSyCz6CXCdF8M2VYULTv3Nl4lInwlFuCEPQI')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const finalJSon = responseJson.results[0];
+          console.log(finalJSon);
+          return finalJSon;
         })
+        .catch((error) => {
+          console.error(error);
+        });
     }
 
 } //class end here

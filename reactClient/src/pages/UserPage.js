@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import userData from "../facades/userFacade";
+import { DateRange } from 'react-date-range';
 
 class UserPage extends Component {
 
@@ -20,21 +21,23 @@ class UserPage extends Component {
         this.setState({err:"",data});
       });
     }
+
+    handleSelect(range){
+           console.log(range);
+           // An object with two keys,
+           // 'startDate' and 'endDate' which are Momentjs objects.
+       }
+
+
+
     render() {
       return (
         <div>
-          <h2>Users</h2>
-          <p>This message is fetched from the server if you are properly logged in</p>
-          
-          <div className="msgFromServer">
-            {this.state.data}  
-          </div>
-          { this.state.err && ( 
-            <div className="alert alert-danger errmsg-left" role="alert"> 
-              {this.state.err}
-            </div>
-          )}
-         
+        <DateRange
+                   onInit={this.handleSelect}
+                   onChange={this.handleSelect}
+               />
+
         </div>
       )
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Data from "../facades/userFacade";
 import auth from '../authorization/auth';
 
 export default class Rating extends Component {

@@ -18,7 +18,7 @@ export default class AddPlace extends Component {
         const longtitude = this.state.place.longtitude;
         const latitude = this.state.place.latitude;
         //const place = this.state.place;
-        if(street != "" && zip != "" && description != "" && longtitude != "" && latitude != "")
+        if(street !== "" && zip !== "" && description !== "" && longtitude !== "" && latitude !== "")
         {
           Data.addPlace(this.state.place,(err) =>
           {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Data from "../facades/adminFacade";
 import Rating from "./Rating";
+import { Link } from "react-router-dom";
 
 class Locations extends Component {
   constructor(props){
@@ -26,17 +27,17 @@ class Locations extends Component {
   render() {
 
   const data = this.state.data.map(function(element){
-    return <div className="place">
-                  <ul className="place" key={element.id}>
+    return <div className="place" key={element.id}>
+                  <Link to="/details">
+                  <ul className="place">
+
                     <img src={element.imageURL} alt="" />
-                    <p><li key={element.id}>Street: {element.street}</li>
-                    <li key={element.id}>Zip: {element.zip}</li>
-                    <li key={element.id}>Beskrivelse: {element.description}</li>
-                    <li key={element.id}>Longtitude: {element.longtitude}</li>
-                    <li key={element.id}>Latitude: {element.latitude}</li>
-                    <li key={element.id}>Rating: {element.rating}</li></p>
+                    <li>Street: {element.street}</li>
+                    <li>Zip: {element.zip}</li>
+                    <li>Rating: {element.rating}</li>
                     <Rating />
                 </ul>
+                </Link>
             </div>
     }
   );
