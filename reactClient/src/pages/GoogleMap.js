@@ -9,11 +9,13 @@ export class GoogleMap extends Component {
         return (
             <Map google={this.props.google} zoom={14}>
 
-                <Marker onClick={this.onMarkerClick} name={'Current location'}/>
+                {/*<Marker onClick={this.onMarkerClick} name={'Current location'}/>*/}
 
-                <InfoWindow onClose={this.onInfoWindowClose}>
-
-                </InfoWindow>
+                {/*<InfoWindow onClose={this.onInfoWindowClose}>*/}
+                    {/*<div>*/}
+                        {/*<h1>{this.state.selectedPlace.name}</h1>*/}
+                    {/*</div>*/}
+                {/*</InfoWindow>*/}
             </Map>
         );
     }
@@ -21,5 +23,5 @@ export class GoogleMap extends Component {
 
 
 export default GoogleApiWrapper({
-    apiKey: (AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo)
+    apiKey: ("AIzaSyAgHTQrLbeH0QRhmV7OYzpLTVCbaJCaPEw")
 })(GoogleMap)
