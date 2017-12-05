@@ -29,29 +29,25 @@ class TopMenu extends Component {
                             <a className="navbar-brand" href="/" style={{pointerEvents: "none"}}>Sommerhus</a>
                         </div>
 
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/map">Map</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/googleMap">Google</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/locations">Locations</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/addplace">Add Location</Link>
-                                </li>
-                                {this.state.loggedIn && this.state.isUser && (
-                                    <li className="nav-item"><Link className="nav-link" to="/user">Page for
-                                        Users </Link></li>)}
-                                {this.state.loggedIn && this.state.isAdmin && (
-                                    <li className="nav-item"><Link className="nav-link" to="/admin">Page for
-                                        Admins</Link></li>)}
-                                {this.state.loggedIn && this.state.isAdmin && (
-                                    <li className="nav-item"><Link className="nav-link" to="/userlist">List of
-                                        Users</Link></li>)}
+
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/map">Map</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/googleMap">Google</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/locations">Locations</Link>
+                </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/addplace">Add Location</Link>
+              </li>
+              {this.state.loggedIn && this.state.isUser && (<li className="nav-item"><Link className="nav-link" to="/user">Page for Users </Link></li>)}
+              {this.state.loggedIn && this.state.isAdmin && (<li className="nav-item"><Link className="nav-link" to="/admin">Page for Admins</Link></li>)}
+              {this.state.loggedIn && this.state.isAdmin && (<li className="nav-item"><Link className="nav-link" to="/userlist">List of Users</Link></li>)}
+
 
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
