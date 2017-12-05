@@ -21,7 +21,7 @@
       <file leaf-file-name="GoogleMap.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/GoogleMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
+            <state relative-caret-position="242">
               <caret line="14" column="61" lean-forward="true" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
               <folding>
                 <element signature="e#43#119#0" expanded="true" />
@@ -199,12 +199,12 @@
       <option name="presentableId" value="Default" />
       <updated>1512120539490</updated>
       <workItem from="1512120541981" duration="4904000" />
-      <workItem from="1512478123870" duration="803000" />
+      <workItem from="1512478123870" duration="1502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5707000" />
+    <option name="totallyTimeSpent" value="6406000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1618" height="868" extended-state="6" />
@@ -314,7 +314,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/GoogleMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
+        <state relative-caret-position="242">
           <caret line="14" column="61" lean-forward="true" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
           <folding>
             <element signature="e#43#119#0" expanded="true" />
