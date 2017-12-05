@@ -21,7 +21,7 @@ export default class Rating extends Component {
     }
 
     render(){
-      if(this.state.loggedIn){
+      if(!this.state.loggedIn){
         return <div className="dropdown">
           <select className="btn btn-secondary dropdown-toggle" onChange={this.handleChange} value={this.state.rate} >
             <option className="dropdown-item" value="1">1 Star</option>

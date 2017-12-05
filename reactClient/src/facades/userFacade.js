@@ -56,7 +56,7 @@ class UserStore {
     this._messageFromServer = "";
     let resFromFirstPromise=null;  //Pass on response the "second" promise so we can read errors from server
     const options = fetchHelper.makeOptions("GET", true);
-    fetch(URL + "api/demoall/getPlaces", options)
+    fetch(URL + "api/places/getPlaces", options)
       .then((res) => {
         resFromFirstPromise = res;
         return res.json();
@@ -87,7 +87,7 @@ addPlace = (placeData,cb) => {
     })
   }
   let resFromFirstPromise = null;
-  fetch(URL + "api/demoall/createPlace", options)
+  fetch(URL + "api/places/createPlace", options)
   .then( res => {
     resFromFirstPromise = res;
     return resFromFirstPromise.json();
@@ -116,7 +116,7 @@ addPlace = (placeData,cb) => {
       })
     }
     let resFromFirstPromise = null;
-    fetch(URL + "api/demoall/file", options)
+    fetch(URL + "api/places/file", options)
     .then( res => {
       resFromFirstPromise = res;
       return resFromFirstPromise.json();

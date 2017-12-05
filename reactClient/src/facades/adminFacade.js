@@ -55,7 +55,7 @@ class AdminStore {
     this._messageFromServer = "";
     let resFromFirstPromise=null;  //Pass on response the "second" promise so we can read errors from server
     const options = fetchHelper.makeOptions("GET", true);
-    fetch(URL + "api/demoall/getPlaces", options)
+    fetch(URL + "api/places/getPlaces", options)
       .then((res) => {
         resFromFirstPromise = res;
         return res.json();

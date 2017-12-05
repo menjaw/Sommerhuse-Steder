@@ -55,8 +55,8 @@ export default class AddPlace extends Component {
     render(){
         return (
                   <form onSubmit={this.handleSubmit}>
-                      Street <input type="text" name="street" placeholder="street" value={this.state.place.street} onChange={this.onChange} id="street" maxlength="30" /><br />
-                      Zip <input type="text" name="zip" placeholder="zip" value={this.state.place.zip} onChange={this.onChange} id="zip" maxlength="5" /><br />
+                      Street <input type="text" name="street" placeholder="street" value={this.state.place.street} onChange={this.onChange} id="street" maxLength="30" /><br />
+                      Zip <input type="text" name="zip" placeholder="zip" value={this.state.place.zip} onChange={this.onChange} id="zip" maxLength="5" /><br />
                       Description <input type="text" name="description" placeholder="description" value={this.state.place.description} onChange={this.onChange} id="description" /><br />
                       Longtitude <input type="text" name="longtitude" placeholder="longtitude" value={this.state.place.longtitude}  onChange={this.onChange} id="longtitude" /><br />
                       Latitude <input type="text" name="latitude" placeholder="latitude" value={this.state.place.latitude} onChange={this.onChange} id="latitude" /><br />

@@ -30,7 +30,8 @@ class Locations extends Component {
     return <div className="place" key={element.id}>
                   <Link to="/details">
                   <ul className="place">
-                    <img src={element.imageURL} alt="" />
+                    <img src={element.img} alt="" />
+                    {console.log(element.img)}
                     <li>Street: {element.street}</li>
                     <li>Zip: {element.zip}</li>
                     <li>Rating: {element.rating}</li>
