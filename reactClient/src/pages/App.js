@@ -3,6 +3,7 @@ import {Route, Switch } from "react-router-dom"
 import Login from "./Login";
 import Logout from "./Logout";
 import Map from "./Map";
+import GoogleMap from "./GoogleMap";
 import UserPage from "./UserPage";
 import AdminPage from "./AdminPage";
 import UserList from "./UserList";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
         <Route path="/map" component={Map} />
+        <Route path="/googleMap" component={GoogleMap} />
         <Route path="/user" component={UserPage} />
         <Route path="/userlist" component={UserList} />
         <Route path="/locations" component={Locations} />
