@@ -72,7 +72,7 @@ public class DeploymentConfiguration implements ServletContextListener {
           //Populate with dummy places
           Place p = new Place();
           p.setDescription("Et sted i provinsen");
-          p.setImageURL("Somewhere/nice/billede.jpg");
+          p.setImg("http://www.erantis.com/guide/denmark/copenhagen/hotel/billeder/hotel-sas-radisson-20081123-p1070211-250.jpg");
          p.setLatitude("55.783282");
          p.setLongitude("12.502484");
          
@@ -81,7 +81,7 @@ public class DeploymentConfiguration implements ServletContextListener {
          
           Place p2 = new Place();
           p2.setDescription("Et sted i lyngby");
-          p2.setImageURL("etsted/ilyngby/billede2.jpg");
+          p2.setImg("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lyngby_Kirke_%28Kongens_Lyngby%29_21-03-06.jpg/300px-Lyngby_Kirke_%28Kongens_Lyngby%29_21-03-06.jpg");
          p2.setLatitude("55.783282");
          p2.setLongitude("12.502484");
          

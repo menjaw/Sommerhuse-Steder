@@ -1,11 +1,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 // @author Lasse
 /*
@@ -15,7 +17,7 @@ import javax.persistence.Id;
 public class Place implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,6 +40,16 @@ public class Place implements Serializable {
     @Column(length = 255, name = "LATITUDE")
     private String latitude;
 
+    public Place(List<Rating> rating, Long id, String street, String zip, String description, String img, String longitude, String latitude) {
+        this.id = id;
+        this.street = street;
+        this.zip = zip;
+        this.description = description;
+        this.img = img;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+    
     public Place() {
 
     }
@@ -74,13 +86,14 @@ public class Place implements Serializable {
         this.description = description;
     }
 
-    public String getImageURL() {
+    public String getImg() {
         return img;
     }
 
-    public void setImageURL(String imageURL) {
+    public void setImg(String img) {
         this.img = img;
     }
+
 
     public String getLongitude() {
         return longitude;

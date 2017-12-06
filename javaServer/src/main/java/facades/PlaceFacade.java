@@ -1,8 +1,5 @@
 package facades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import entity.Place;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 // @author Lasse
 public class PlaceFacade implements IplaceFacade {
@@ -59,7 +52,7 @@ public class PlaceFacade implements IplaceFacade {
         EntityManager em = getEntityManager();
         List<Place> placeList = new ArrayList();
         try {
-            Query query = em.createQuery("SELECT e FROM SEED_PLACE e");
+            Query query = em.createQuery("SELECT p, AVG(r.ratings) AS rating FROM SEED_PLACE p JOIN SEED_RATING r WHERE p.id = 1");
             placeList = query.getResultList();
             return placeList;
         } catch (Exception e) {
@@ -103,11 +96,12 @@ public class PlaceFacade implements IplaceFacade {
         }
     }
     
+    
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
         Place p = new Place();
         p.setDescription("Et sted hvor man ryger fed");
-        p.setImageURL("etsted/andetsted/billede.jpg");
+        p.setImg("etsted/andetsted/billede.jpg");
         p.setLatitude("8.0124155");
         p.setLongitude("3.5263644");
         p.setStreet("PrinsesseGade");

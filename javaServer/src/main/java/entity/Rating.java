@@ -6,8 +6,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +21,7 @@ import javax.persistence.Id;
 public class Rating implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 11, name = "RATINGID")
@@ -36,7 +37,8 @@ public class Rating implements Serializable {
     public Rating() {
     }
 
-    public Rating(int userId, int placeId, int rating) {
+    public Rating(List<Place> places, int ratingid, int userId, int placeId, int ratings) {
+        this.ratingid = ratingid;
         this.userId = userId;
         this.placeId = placeId;
         this.ratings = ratings;
@@ -70,5 +72,6 @@ public class Rating implements Serializable {
     public String toString() {
         return "Rating{" + "userId=" + userId + ", placeId=" + placeId + ", ratings=" + ratings + '}';
     }
+    
     
 }
