@@ -35,15 +35,13 @@ public class PlaceFacade implements IplaceFacade {
     @Override
     public Place getPlace(Long id) {
         EntityManager em = emf.createEntityManager();
-        Place p = null;
         try {
-            em.getTransaction().begin();
-            p = em.find(Place.class, (long) id);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+            Place place  = em.find(Place.class, id);
+            return place;
+        } catch(Exception e){
+            e.getMessage();
         }
-        return p;
+        return null;
     }
     
     public void createPlace(Place place) {
