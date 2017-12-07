@@ -9,6 +9,7 @@
     "react": "^16.0.0",
     "react-date-range": "^0.9.4",
     "react-dom": "^16.0.0",
+    "react-geolocated": "^2.2.1",
     "react-google-maps": "^9.4.1",
     "react-images-upload": "^1.1.1",
     "react-router-dom": "^4.2.2",

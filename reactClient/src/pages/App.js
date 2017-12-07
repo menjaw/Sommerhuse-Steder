@@ -12,6 +12,7 @@ import Register from "./Register";
 import Locations from "./Locations";
 import Details from "./Details";
 import AddPlace from "./AddPlace";
+import Geolocation from "./Geolocation";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/logout" component={Logout} />
         <Route path="/map" component={Map} />
         <Route path="/googleMap" component={GoogleMap} />
+        <Route path="/geolocation" component={Geolocation} />
         <Route path="/user" component={UserPage} />
         <Route path="/userlist" component={UserList} />
         <Route path="/locations" component={Locations} />
