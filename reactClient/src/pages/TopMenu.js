@@ -39,6 +39,9 @@ class TopMenu extends Component {
                   <Link className="nav-link" to="/googleMap">Google</Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/geolocation">Geolocation</Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/locations">Locations</Link>
                 </li>
               <li className="nav-item">
