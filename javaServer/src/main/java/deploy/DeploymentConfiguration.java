@@ -1,6 +1,7 @@
 package deploy;
 
 // import entity.Place;
+import entity.Home;
 import entity.Place;
 import entity.Rating;
 import entity.Role;
@@ -87,7 +88,43 @@ public class DeploymentConfiguration implements ServletContextListener {
          
          p2.setStreet("Caroline Amalie Vej 35");
          p2.setZip("2800");
-          
+         
+         Home h1 = new Home();
+         h1.setName("Sommerhus1");
+         h1.setCity("Lyngby");
+         h1.setImage("https://images.sologstrand.dk/001_11-3063_000_006.JPG");
+         h1.setStatus(false);
+         
+         Home h2 = new Home();
+         h2.setName("Sommerhus2");
+         h2.setCity("Lyngby");
+         h2.setImage("https://images.sologstrand.dk/001_41-0087_000_006.JPG");
+         h2.setStatus(false);
+         
+         Home h3 = new Home();
+         h3.setName("Sommerhus3");
+         h3.setCity("Lyngby");
+         h3.setImage("https://sdc.novasol.com/pic/600/a07/a07409_main_01.jpg");
+         h3.setStatus(false);
+         
+         Home h4 = new Home();
+         h4.setName("Sommerhus4");
+         h4.setCity("Billund");
+         h4.setImage("https://www.sommerhusdanmark.dk/uploads/1882/house/7081-1-full.jpg");
+         h4.setStatus(false);
+         
+         Home h5 = new Home();
+         h5.setName("Sommerhus5");
+         h5.setCity("Billund");
+         h5.setImage("https://www.sommerhusdanmark.dk/uploads/1354/house/1427-1-full.jpg");
+         h5.setStatus(false);
+         
+         Home h6 = new Home();
+         h6.setName("Sommerhus6");
+         h6.setCity("Billund");
+         h6.setImage("http://www.ifish.net/gallery/data/500/smoker_tent2.jpg");
+         h6.setStatus(false);
+         
           Rating rating = new Rating();
           
           rating.setUserId(3);
@@ -95,6 +132,7 @@ public class DeploymentConfiguration implements ServletContextListener {
           rating.setRating(2);
          
          em.persist(rating);
+        
          //Persist part
           em.persist(userRole);
           em.persist(adminRole);
@@ -103,6 +141,12 @@ public class DeploymentConfiguration implements ServletContextListener {
           em.persist(both);
           em.persist(p);
           em.persist(p2);
+          em.persist(h1);
+          em.persist(h2);
+          em.persist(h3);
+          em.persist(h4);
+          em.persist(h5);
+          em.persist(h6);
           em.getTransaction().commit();
           System.out.println("Created TEST Users");
         }

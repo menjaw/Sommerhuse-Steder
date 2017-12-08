@@ -8,8 +8,10 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import entity.Home;
 import entity.Place;
 import entity.Rating;
+import facades.HomeFacade;
 import facades.IplaceFacade;
 import facades.IratingFacade;
 import facades.UserFacade;
@@ -57,6 +59,7 @@ public class All {
   IplaceFacade ipf;
   IratingFacade irf;
   PlaceFacade pf;
+  HomeFacade hf;
   
   /**
    * Creates a new instance of A
@@ -128,19 +131,36 @@ public class All {
   }
   
   @GET
-    @Path("single/{id}")
+  @Path("/getHomes")
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getHomes(){
+     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_development");
+     hf = new HomeFacade(emf);
+     return gson.toJson(hf.getHomes());
+  }
+  
+    @GET
+    @Path("/singlePlace/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String singlePlace(String singleJson, @PathParam("id") Long id){
-        Place p = null;
+    public String singlePlace(@PathParam("id") Long id){
+        Place place = pf.getPlace(id);
+        return gson.toJson(place);
+    }
+    
+    @GET
+    @Path("singleHome/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String singleHome(@PathParam("id") Long id){
+        Home h = null;
         try{
-            p = ipf.getPlace(id);
-            if(p == null){
-                return gson.toJson(p);
+            h = hf.getHome(id);
+            if(h == null){
+                return gson.toJson(h);
             }
         }catch(NullPointerException ex){
             return null;
         }
-        return gson.toJson(p);
+        return gson.toJson(h);
     }
     
     
